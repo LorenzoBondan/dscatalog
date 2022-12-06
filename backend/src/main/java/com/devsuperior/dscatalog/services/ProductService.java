@@ -12,8 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.dto.ProductDTO;
+import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
+import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.repositories.ProductRepository;
 import com.devsuperior.dscatalog.services.exceptions.DataBaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
@@ -23,6 +26,9 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository repository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	// TRAZER TUDO
 	
@@ -51,12 +57,15 @@ public class ProductService {
 		Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found."));
 		return new ProductDTO(entity, entity.getCategories());
 	}
+	
+
 
 	@Transactional
 	public ProductDTO insert(ProductDTO dto)
 	{
 		Product entity = new Product();
 		//entity.setName(dto.getName());
+		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new ProductDTO(entity);
 	}
@@ -66,6 +75,7 @@ public class ProductService {
 		try {
 			Product entity = repository.getOne(id);
 			//entity.setName(dto.getName());
+			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new ProductDTO(entity);
 		}
@@ -84,6 +94,26 @@ public class ProductService {
 		// CASO VC TENTE DELETAR UMA CATEGORIA COM PRODUTOS VINCULADOS
 		catch(DataIntegrityViolationException e) {
 			throw new DataBaseException("Integrity Violation");
+		}
+	}
+	
+	// MÉTODO AUXILIAR PRA COPIAR TODAS AS PROPRIEDADES DA DTO PRA ENTITY
+	// USADO NO INSERT E NO UPDATE PRA TODOS OS ATRIBUTOS
+	
+	private void copyDtoToEntity(ProductDTO dto, Product entity) {
+		
+		entity.setName(dto.getName());
+		entity.setDescription(dto.getDescription());
+		entity.setDate(dto.getDate());
+		entity.setImgUrl(dto.getImgUrl());
+		entity.setPrice(dto.getPrice());
+		
+		// COPIAR AS CATEGORIAS DO DTO PARA A ENTIDADE
+		entity.getCategories().clear();
+		
+		for(CategoryDTO catDto : dto.getCategories()) { //FOREACH
+			Category category = categoryRepository.getOne(catDto.getId());
+			entity.getCategories().add(category);
 		}
 	}
 }
