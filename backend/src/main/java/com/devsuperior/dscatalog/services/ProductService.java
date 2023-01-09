@@ -48,7 +48,7 @@ public class ProductService {
 	}
 	
 
-	//METODO DE BUSCAR CATEGORIA POR ID
+	//METODO DE BUSCAR PRODUTO POR ID
 	
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) 
