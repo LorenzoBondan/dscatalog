@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,10 +27,12 @@ public class User implements Serializable{
 	private Long id;
 	private String firstName;
 	private String lastName;
+	
+	@Column(unique = true) // ELE NÃO DEIXA COLOCAR O MESMO EMAIL PRA MAIS DE UM USUÁRIO
 	private String email;
 	private String password;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER) // SEMPRE QUE CARREGAR, JÁ VAI TRAZER JUNTO A LISTA DE PERFIS DESTE USUÁRIO
 	@JoinTable(name = "tb_user_role",
 				joinColumns = @JoinColumn(name = "user_id"), // CLASSE ONDE EU ESTOU
 				inverseJoinColumns = @JoinColumn(name = "role_id")
