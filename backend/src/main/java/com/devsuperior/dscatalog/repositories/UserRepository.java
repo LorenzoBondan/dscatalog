@@ -8,4 +8,6 @@ import com.devsuperior.dscatalog.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long>{
 
+	// METODO QUE BUSCA NO BANCO UM USUARIO POR EMAIL
+	User findByEmail(String email);
 }
