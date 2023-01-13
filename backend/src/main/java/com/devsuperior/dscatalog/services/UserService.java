@@ -4,11 +4,15 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devsuperior.dscatalog.dto.RoleDTO;
 import com.devsuperior.dscatalog.dto.UserDTO;
 import com.devsuperior.dscatalog.dto.UserInsertDTO;
+import com.devsuperior.dscatalog.dto.UserUpdateDTO;
 import com.devsuperior.dscatalog.entities.Role;
 import com.devsuperior.dscatalog.entities.User;
 import com.devsuperior.dscatalog.repositories.RoleRepository;
@@ -24,8 +29,11 @@ import com.devsuperior.dscatalog.services.exceptions.DataBaseException;
 import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
+	//MACETE PRA LANÇAR MENSAGEM NO CONSOLE
+	private static Logger logger = org.slf4j.LoggerFactory.getLogger(UserService.class); // É TIPO UMA MESSAGEBOX
+	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder; // PRA ESCONDER A SENHA, CLASSE APPCONFIG
 	
@@ -76,7 +84,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(Long id, UserDTO dto) {
+	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
 			User entity = repository.getOne(id);
 			copyDtoToEntity(dto, entity);
@@ -115,5 +123,22 @@ public class UserService {
 			Role role = roleRepository.getOne(rolDto.getId());
 			entity.getRoles().add(role);
 		}
+	}
+
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// METODO DO USERREPOSITORY QUE CRIAMOS, FINDBYEMAIL
+		User user = repository.findByEmail(username);
+		
+		// SE NÃO EXISTIR, LANÇAR UMA UsernameNotFoundException
+		if(user == null) {
+			// MACETE PRA LANÇAR NO CONSOLE UMA MENSAGEM (LOGGER FOI INSTANCIADO ACIMA NA CLASSE)
+			logger.error("User not found: " + username);
+			throw new UsernameNotFoundException("Email not found");
+		}
+		
+		logger.info("User found: " + username);
+		return user;
 	}
 }
