@@ -20,5 +20,7 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 			+ "(UPPER(obj.name) LIKE UPPER(CONCAT('%', :name, '%')) )")
 	Page<Product> find(List<Category> categories, String name, Pageable pageable); // METODO CRIADO PARA BUSCAR PRODUTOS POR CATEGORIA, ULTIMO PARAMETRO TEM QUE SER UM PAGEABLE
 	
-	
+	// PRA CORRIGIR O PROBLEMA DAS N+1 CONSULTAS
+	@Query("SELECT obj FROM Product obj JOIN FETCH obj.categories WHERE obj IN :products") // JOIN FETCH BUSCA OS OBJETOS JUNTO COM O PRODUTO. SÓ FUNCIONA COM LISTA E NAO COM PAGINA, POR ISSO A CONSULTA EM DUAS ETAPAS
+	List<Product> findProductsWithCategories(List<Product> products);
 }
