@@ -1,0 +1,33 @@
+/* barra */
+.main-nav{
+    min-height: 70px;
+    padding-left: 40px;
+}
+
+/* logo da barra de navegação (DS Catalog) */
+.nav-logo-text, .nav-logo-text:hover{
+    color: white;
+}
+
+/* home, catalogo, admin da barra de navegação */
+.main-menu{
+    display: flex;
+    font-size: 18px;
+    width: 380px; /* tamanho do início do home até o final do admin */
+    justify-content: space-between;
+}
+
+.main-menu a {
+    color: rgba(255,255,255,0.5);
+}
+
+.main-menu a:hover {
+    color: rgb(255,255,255);
+}
+
+/* quando o está na tela home, é como se ele estivesse selecionado (classe active( */
+.main-menu a.active {
+    color: rgb(255,255,255);
+    font-weight: bold;
+}
+

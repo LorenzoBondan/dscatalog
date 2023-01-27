@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap'); /* google fonts, @import
+
+/* a fonte de todo o projeto é Open Sans */
+* {
+    font-family: 'Open Sans';
+}
+
+/* títulos principais do projeto estão em negrito */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+/* textos -> sem o sublinhado */
+a, a:hover{
+    text-decoration: none;
+    color: unset;
+}
