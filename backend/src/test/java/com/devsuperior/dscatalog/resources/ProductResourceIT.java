@@ -50,12 +50,9 @@ public class ProductResourceIT {
 		
 		username = "maria@gmail.com" ;
 		password = "123456" ;
-		
 		productDTO = Factory.createProductDTO();
 	}
-	
 	// TESTE DE INTEGRAÇÃO DESDE A CAMADA WEB
-	
 	@Test
 	public void findAllShouldReturnSortedPageWhenSortByName() throws Exception {
 		
@@ -67,20 +64,14 @@ public class ProductResourceIT {
 						.andExpect(jsonPath("$.content[0].name").value("Macbook Pro")) // 1 PRODUTO
 						.andExpect(jsonPath("$.content[1].name").value("PC Gamer"))	 // 2 PRODUTO
 						.andExpect(jsonPath("$.content[2].name").value("PC Gamer Alfa")); // 3 PRODUTO
-		
 	}
-	
 	// update
 	@Test
 	public void updateShouldReturnProductWhenIdExists() throws Exception {
-		
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
-		
 		String jsonBody = objectMapper.writeValueAsString(productDTO);
-		
 		String expectedName = productDTO.getName();
 		String expectedDescription = productDTO.getDescription();
-		
 		mockMvc.perform(put("/products/{id}",existingId)
 				.header("Authorization", "Bearer " + accessToken)
 				.content(jsonBody)
@@ -90,16 +81,11 @@ public class ProductResourceIT {
 				.andExpect(jsonPath("$.id").value(existingId)) 
 				.andExpect(jsonPath("$.name").value(expectedName))
 				.andExpect(jsonPath("$.description").value(expectedDescription)); 
-		
 	}
-	
 	@Test
 	public void updateShouldReturnNotFoundWhenIdDoesNotExist() throws Exception {
-		
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
-		
 		String jsonBody = objectMapper.writeValueAsString(productDTO);
-		
 		mockMvc.perform(put("/products/{id}", nonExistingId)
 				.header("Authorization", "Bearer " + accessToken)
 				.content(jsonBody)
