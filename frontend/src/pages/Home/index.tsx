@@ -11,10 +11,10 @@ function Home() {
         
         <div className="home-container">  
             
-            <div className="home-card">
+            <div className="base-card home-card">
 
                 <div className="home-content-container">
-                    
+
                     <div>
                         <h1>Conheça o melhor catálogo do curso!</h1>
                         <p>Ajudaremos você a encontrar os melhores produtos disponíveis no mercado.</p>
