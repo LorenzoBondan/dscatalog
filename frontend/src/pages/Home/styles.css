@@ -58,3 +58,33 @@
     height: auto;
     border: solid 1px green;
 }
+
+/* ### RESPONSIVIDADE ### */
+
+@media(min-width: 576px){
+
+    /* aumentar a fonte do home container -> muda proporcionalmente as fontes do titulo e subtitulo pois unidades 'em' */
+    .home-container{
+        padding: 15px;
+        font-size: 40px;
+    }
+
+    /* aumentar a área do título e subtítulo */ 
+    .home-content-container h1 { /* conheça o melhor catálogo do curso */
+        width: 506px; /* ajustar a largura pras palavras se adequarem */
+        margin-bottom: 20px;
+    }
+    
+    .home-content-container p { /* descrição */
+        width: 506px;
+        margin-bottom: 47px;
+    }
+
+    .home-content-container button {
+        width: 506px;
+    }
+
+    .home-image-container svg{
+        width: 506px; 
+    }
+}
