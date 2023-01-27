@@ -14,9 +14,16 @@ function Home() {
             <div className="home-card">
 
                 <div className="home-content-container">
-                    <h1>Conheça o melhor catálogo do curso!</h1>
-                    <p>Ajudaremos você a encontrar os melhores produtos disponíveis no mercado.</p>
-                    <ButtonIcon />
+                    
+                    <div>
+                        <h1>Conheça o melhor catálogo do curso!</h1>
+                        <p>Ajudaremos você a encontrar os melhores produtos disponíveis no mercado.</p>
+                    </div>
+
+                    <div>
+                        <ButtonIcon />
+                    </div>
+                    
                 </div>
 
                 <div className="home-image-container">
