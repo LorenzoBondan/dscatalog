@@ -1,13 +1,11 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
-import Navbar from "components/Navbar";
 import { ReactComponent as MainImage } from 'assets/images/Desenho.svg'; 
 import './styles.css';
 import ButtonIcon from "components/ButtonIcon";
+import { Link } from 'react-router-dom';
 
 function Home() {
     return (
       <>
-        <Navbar />
         
         <div className="home-container">  
             
@@ -21,7 +19,10 @@ function Home() {
                     </div>
 
                     <div>
-                        <ButtonIcon />
+                        <Link to="/products">
+                        <   ButtonIcon />
+                        </Link>
+                        
                     </div>
                     
                 </div>
