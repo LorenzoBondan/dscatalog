@@ -19,10 +19,13 @@ function Home() {
                     </div>
 
                     <div>
-                        <Link to="/products">
-                        <   ButtonIcon />
-                        </Link>
                         
+                        <div>
+                            <Link to="/products">
+                                <ButtonIcon />
+                            </Link>
+                        </div>
+
                     </div>
                     
                 </div>
