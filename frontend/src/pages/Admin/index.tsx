@@ -1,3 +1,4 @@
+import { Route, Switch } from "react-router-dom";
 import Navbar from "./Navbar";
 import './styles.css';
 
@@ -7,7 +8,21 @@ const Admin = () => {
             <Navbar></Navbar>
 
             <div className="admin-content">
-                <h1>conteudo</h1>
+                
+                <Switch>
+                    <Route path="/admin/products">
+                        <h1>product CRUD</h1>
+                    </Route>
+
+                    <Route path="/admin/categories">
+                        <h1>Category CRUD</h1>
+                    </Route>
+
+                    <Route path="/admin/users">
+                        <h1>User CRUD</h1>
+                    </Route>
+                </Switch>
+
             </div>
 
 
