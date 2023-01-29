@@ -1,5 +1,6 @@
 import {ReactComponent as ArrowIcon} from 'assets/images/Seta.svg';
 import ProductPrice from 'components/ProductPrice';
+import { Link } from 'react-router-dom';
 import './styles.css';
 
 const ProductDetails = () => {
@@ -8,11 +9,12 @@ const ProductDetails = () => {
 
             <div className="base-card product-details-card">
 
-                <div className="goback-container">
-                    <ArrowIcon />
-                    <h2>VOLTAR</h2>
-                </div>
-
+                <Link to="/products">
+                    <div className="goback-container">
+                        <ArrowIcon />
+                        <h2>VOLTAR</h2>
+                    </div>
+                </Link>
                 <div className="row">
 
                     <div className="col-xl-6">
