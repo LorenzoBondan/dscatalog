@@ -21,6 +21,8 @@
     align-items: center;
 
     border-radius: 0 10px 10px 0;
+
+    color:white;
 }
 
 @media(min-width: 576px){
