@@ -44,7 +44,11 @@ const Login = () => {
         <div className="mb-4">
           <input 
             {...register("username", {
-                required: 'Campo obrigatório'
+                required: 'Campo obrigatório',
+                pattern: { 
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Insira um Email válido'
+                }
             })}
             type="text"
             className="form-control base-input"
