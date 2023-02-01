@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ButtonIcon from 'components/ButtonIcon';
 
 
@@ -18,6 +18,8 @@ const Login = () => {
 
     const { register, handleSubmit, formState: {errors} } = useForm<FormData>(); //formstate errors -> validação dos campos
 
+    const history = useHistory(); // permite redirecionamentos e mudanças de rota
+
     const onSubmit = (formData : FormData) => {
         requestBackendLogin(formData)
         .then(response => {
@@ -28,6 +30,8 @@ const Login = () => {
 
             setHasError(false);
             console.log('SUCESSO', response);
+
+            history.push('/admin'); // faz o login e joga pra tela de admin, que por sua vez, entra direto na rota de admin/products
         })
         .catch(error => {
             setHasError(true);
