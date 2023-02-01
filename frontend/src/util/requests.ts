@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import jwtDecode from 'jwt-decode';
 import qs from 'qs';
 import history from './history';
 
@@ -11,6 +12,14 @@ type LoginResponse = {
    userFirstName: string;
    userId: number;
 }
+
+type TokenData = {
+    exp : number;
+    user_name : string;
+    authorities : Role[];
+}
+
+type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
 
 export const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
 
@@ -84,3 +93,22 @@ axios.interceptors.response.use(function (response) {
     console.log("INTERCEPTOR COM ERRO");
     return Promise.reject(error);
   });
+
+
+  // função para decodificar o token
+  export const getTokenData = () : TokenData | undefined => {
+    // yarn add jwt-decode @types/jwt-decode
+    try {
+        return jwtDecode(getAuthData().access_token) as TokenData;
+    }
+    catch(error){
+        return undefined;
+    }
+  }
+
+  // função para testar se o usuário está autenticado
+  export const isAuthenticated = () : boolean => {
+    const tokenData = getTokenData();
+
+    return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
+  }
