@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
+import history from './history';
 
 /* JSON do endpoint Auth */
 type LoginResponse = {
@@ -59,3 +60,27 @@ export const getAuthData = () => {
     const str = localStorage.getItem(tokenKey) ?? "{}";
     return JSON.parse(str) as LoginResponse;
 }
+
+/* axios interceptors */ 
+
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+    console.log("INTERCEPTOR ANTES DA REQUISIÇÃO");
+    return config;
+  }, function (error) {
+    console.log("INTERCEPTOR ERRO NA REQUISIÇÃO");
+    return Promise.reject(error);
+  });
+
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+    console.log("INTERCEPTOR RESPOSTA COM SUCESSO");
+    return response;
+  }, function (error) {
+
+    if(error.response.status === 401 || error.response.status === 403){
+        history.push('/admin/auth');
+    }
+    console.log("INTERCEPTOR COM ERRO");
+    return Promise.reject(error);
+  });
