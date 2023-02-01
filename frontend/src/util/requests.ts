@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 
 /* JSON do endpoint Auth */
@@ -38,6 +38,16 @@ export const requestBackendLogin = (loginData : LoginData) => {
     });
 
     return axios({method: 'POST', baseURL: BASE_URL, url: '/oauth/token', data: data, headers: headers})
+}
+
+export const requestBackend = (config : AxiosRequestConfig) => {
+
+    const headers = config.withCredentials ? {
+        ...config.headers, // aproveita o que já tinha no headers, que foi passado, e acrescenta no authorization
+        Authorization : "Bearer " + getAuthData().access_token
+    } : config.headers;
+
+    return axios({...config, baseURL: BASE_URL, headers});
 }
 
 /*  Salvando os dados de autenticação no localStorage */
