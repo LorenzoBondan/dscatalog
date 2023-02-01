@@ -1,27 +1,30 @@
+import PrivateRoute from "components/PrivateRoute";
 import { Route, Switch } from "react-router-dom";
 import Navbar from "./Navbar";
 import './styles.css';
 import Users from "./User";
 
+// privateroute -> componente criado para verificar se o usuário está autenticado para ter acesso às rotas
+
 const Admin = () => {
     return (
         <div className="admin-container">
-            <Navbar></Navbar>
+            <Navbar />
 
             <div className="admin-content">
                 
                 <Switch>
-                    <Route path="/admin/products">
+                    <PrivateRoute path="/admin/products">
                         <h1>product CRUD</h1>
-                    </Route>
+                    </PrivateRoute>
 
-                    <Route path="/admin/categories">
+                    <PrivateRoute path="/admin/categories">
                         <h1>Category CRUD</h1>
-                    </Route>
+                    </PrivateRoute>
 
-                    <Route path="/admin/users">
+                    <PrivateRoute path="/admin/users">
                         <Users />
-                    </Route>
+                    </PrivateRoute>
                 </Switch>
 
             </div>
