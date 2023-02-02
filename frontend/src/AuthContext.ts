@@ -1,7 +1,8 @@
 // 1- CRIAR O CONTEXTO GLOBAL
 
 import {createContext} from 'react';
-import { TokenData } from 'util/requests';
+import { TokenData } from 'util/auth';
+
 
 export type AuthContextData = {
     authenticated : boolean,
