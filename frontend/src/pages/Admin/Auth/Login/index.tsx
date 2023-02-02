@@ -4,8 +4,9 @@ import ButtonIcon from 'components/ButtonIcon';
 
 import './styles.css';
 import { useForm } from 'react-hook-form';
-import { getAuthData, requestBackendLogin, saveAuthData } from 'util/requests';
-import { useState } from 'react';
+import { getAuthData, getTokenData, requestBackendLogin, saveAuthData } from 'util/requests';
+import { useContext, useState } from 'react';
+import { AuthContext } from 'AuthContext';
 
 type FormData = {
     username: string,
@@ -13,6 +14,8 @@ type FormData = {
   };
 
 const Login = () => {
+
+    const { setAuthContextData } = useContext(AuthContext); // veio da navbar, para substituir login por logout e vice-versa
 
     const [hasError, setHasError] = useState(false); // mensagem de erro ao preencher errado (bootstrap alerts)
 
@@ -30,6 +33,11 @@ const Login = () => {
 
             setHasError(false);
             console.log('SUCESSO', response);
+
+            setAuthContextData({ // da navbar, mudar login -> logout
+              authenticated: true,
+              tokenData: getTokenData()
+            })
 
             history.push('/admin'); // faz o login e joga pra tela de admin, que por sua vez, entra direto na rota de admin/products
         })
