@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import ButtonIcon from 'components/ButtonIcon';
 
 
@@ -13,7 +13,15 @@ type FormData = {
     password: string,
   };
 
+  //redirecionar pra rota pretendida após o login (componente PrivateRoute)
+type LocationState = {
+  from: string;
+}
+
 const Login = () => {
+
+    const location = useLocation<LocationState>();
+    const {from} = location.state || { from: { pathname: '/admin '}};
 
     const { setAuthContextData } = useContext(AuthContext); // veio da navbar, para substituir login por logout e vice-versa
 
@@ -39,7 +47,7 @@ const Login = () => {
               tokenData: getTokenData()
             })
 
-            history.push('/admin'); // faz o login e joga pra tela de admin, que por sua vez, entra direto na rota de admin/products
+            history.replace(from); // faz o login e joga pra tela de admin, que por sua vez, entra direto na rota de admin/products
         })
         .catch(error => {
             setHasError(true);
