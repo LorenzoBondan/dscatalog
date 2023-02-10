@@ -30,6 +30,15 @@ function ProductCrudCard( {product} : Props ) {
               </div>
 
             </div>
+
+            <div className='product-crud-card-buttons-container'>
+                <button className='btn btn-outline-danger product-crud-card-button' style={{marginRight:"10px"}}>
+                  EXCLUIR
+                </button>
+                <button className='btn btn-outline-secondary product-crud-card-button'>
+                  EDITAR
+                </button>
+            </div>
         </div>
         
       </>
