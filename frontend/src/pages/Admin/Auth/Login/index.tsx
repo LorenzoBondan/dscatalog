@@ -23,13 +23,16 @@ type LocationState = {
 
 const Login = () => {
 
+    //redirecionamento de rota
     const location = useLocation<LocationState>();
-    const {from} = location.state || { from: { pathname: '/admin '}};
+    const {from} = location.state || { from: { pathname: '/admin'}}; // a rota que quis acessar, ou p rota /admin, que por sua vez, leva p admin/students
 
+    // verificar autenticação
     const { setAuthContextData } = useContext(AuthContext); // veio da navbar, para substituir login por logout e vice-versa
 
     const [hasError, setHasError] = useState(false); // mensagem de erro ao preencher errado (bootstrap alerts)
 
+    // eventos do formulário
     const { register, handleSubmit, formState: {errors} } = useForm<FormData>(); //formstate errors -> validação dos campos
 
     const history = useHistory(); // permite redirecionamentos e mudanças de rota
@@ -68,7 +71,10 @@ const Login = () => {
         </div>
         )}
 
+
       <form onSubmit={handleSubmit(onSubmit)}>
+        
+        
         <div className="mb-4">
           <input 
             {...register("username", {
@@ -86,6 +92,7 @@ const Login = () => {
           <div className='invalid-feedback d-block'>{errors.username?.message}</div>
         </div>
 
+
         <div className="mb-2">
           <input
             {...register("password", {
@@ -98,6 +105,8 @@ const Login = () => {
           />
           <div className='invalid-feedback d-block' >{errors.password?.message}</div>
         </div>
+
+
 
         <Link to="/admin/auth/recover" className="login-link-recover">
           Esqueci a senha
