@@ -1,0 +1,11 @@
+.product-card-form-card{
+    padding: 20px;
+}
+
+.product-card-form-card h1{
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.015em;
+
+    color: #263238;
+}
