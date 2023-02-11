@@ -1,8 +1,9 @@
 import { AxiosRequestConfig } from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import { Category } from 'types/category';
 import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
 import './styles.css';
@@ -13,18 +14,21 @@ type UrlParams = {
 
 const Form = () => {
 
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-      ]
-
     const { productId } = useParams<UrlParams>();
     
     const isEditing = productId !== 'create';
 
     const { register, handleSubmit, formState: {errors}, setValue } = useForm<Product>();
 
+    //trazer as categorias pra povoar o combobox
+    useEffect(() => {
+        requestBackend({url: '/categories'})
+            .then(response => {
+                setSelectCategories(response.data.content)
+            })
+    }, []);
+
+    //carregar as textboxes com os valores do produto a ser editado
     useEffect(() => {
         if (isEditing) {
             requestBackend({url:`/products/${productId}`})
@@ -42,6 +46,8 @@ const Form = () => {
     }, [isEditing, productId, setValue]);
 
     const history = useHistory();
+
+    const [selectCategories, setSelectCategories] = useState<Category[]>();
 
     const onSubmit = (formData : Product) => {
 
@@ -101,10 +107,12 @@ const Form = () => {
                             <div className='margin-bottom-30'>
                                 
                                 <Select 
-                                    options={options}
+                                    options={selectCategories}
                                     classNamePrefix="product-crud-select"
                                     placeholder="Categoria"
                                     isMulti
+                                    getOptionLabel={(category: Category) => category.name}
+                                    getOptionValue={(category: Category) => category.id.toString()}
                                 />
 
                             </div>
