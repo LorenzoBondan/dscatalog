@@ -11,7 +11,7 @@ import { requestBackendLogin } from 'util/requests';
 import { getAuthData, saveAuthData } from 'util/storage';
 import { getTokenData } from 'util/auth';
 
-type FormData = {
+type CredentialsDTO = {
     username: string,
     password: string,
   };
@@ -33,11 +33,11 @@ const Login = () => {
     const [hasError, setHasError] = useState(false); // mensagem de erro ao preencher errado (bootstrap alerts)
 
     // eventos do formulário
-    const { register, handleSubmit, formState: {errors} } = useForm<FormData>(); //formstate errors -> validação dos campos
+    const { register, handleSubmit, formState: {errors} } = useForm<CredentialsDTO>(); //formstate errors -> validação dos campos
 
     const history = useHistory(); // permite redirecionamentos e mudanças de rota
 
-    const onSubmit = (formData : FormData) => {
+    const onSubmit = (formData : CredentialsDTO) => {
         requestBackendLogin(formData)
         .then(response => {
             saveAuthData(response.data)
