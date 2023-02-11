@@ -1,28 +1,52 @@
 import { AxiosRequestConfig } from 'axios';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
 import './styles.css';
 
+type UrlParams = {
+    productId: string;
+}
 
 const Form = () => {
 
-    const { register, handleSubmit, formState: {errors} } = useForm<Product>();
+    const { productId } = useParams<UrlParams>();
+    
+    const isEditing = productId !== 'create';
+
+    const { register, handleSubmit, formState: {errors}, setValue } = useForm<Product>();
+
+    useEffect(() => {
+        if (isEditing) {
+            requestBackend({url:`/products/${productId}`})
+                .then((response) => {
+
+                    const product = response.data as Product;
+
+                    setValue('name', product.name);
+                    setValue('price', product.price);
+                    setValue('description', product.description);
+                    setValue('imgUrl', product.imgUrl);
+                    setValue('categories', product.categories);
+                })
+        }
+    }, [isEditing, productId, setValue]);
 
     const history = useHistory();
 
     const onSubmit = (formData : Product) => {
 
         const data = {...formData,
-            imgUrl:"https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/24-big.jpg",
-            categories: [ {id:1, name: ""} ]
+            imgUrl: isEditing? formData.imgUrl : "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/24-big.jpg",
+            categories: isEditing? formData.categories : [ {id:1, name: ""} ]
         }
 
         //data : formData
         const params : AxiosRequestConfig = {
-            method:"POST",
-            url: "/products",
+            method: isEditing? "PUT" : "POST",
+            url: isEditing? `/products/${productId}` : "/products",
             data: data,
             withCredentials: true
           };
@@ -106,7 +130,7 @@ const Form = () => {
                         </button>
 
                         <button className='btn btn-primary text-white product-crud-buttons'>SALVAR</button>
-                        
+
                     </div>
                 </form>
             </div>
