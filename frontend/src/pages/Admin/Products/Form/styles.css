@@ -36,6 +36,25 @@
     font-weight: bold;
 }
 
+/* combobox -> cada parte é um parâmetro difente, pelo inspecionar dá pra ver */
+.product-crud-select__control{
+    border-radius: 10px !important;
+    font-size: 1em;
+    letter-spacing: -0.015em;
+    color: #263238;
+    height: 50px;
+    background-color: #F2F2F2 !important;
+}
+
+.product-crud-select__placeholder {
+    color: #9E9E9E !important;
+}
+
+/* separador antes da flecha */
+.product-crud-select__indicator-separator{
+    display: none;
+}
+
 @media(min-width:576px){
     .product-crud-buttons-container{
         display: flex;
