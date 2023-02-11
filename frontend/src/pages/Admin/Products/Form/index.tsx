@@ -30,6 +30,7 @@ const Form = () => {
         requestBackend(params)
         .then(response => {
             console.log('SUCESSO', response.data);
+            history.push("/admin/products");
         });
     };
 
@@ -102,9 +103,10 @@ const Form = () => {
                             onClick={handleCancel}
                             >
                             CANCELAR
-                            </button>
+                        </button>
 
                         <button className='btn btn-primary text-white product-crud-buttons'>SALVAR</button>
+                        
                     </div>
                 </form>
             </div>
