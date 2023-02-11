@@ -13,7 +13,10 @@ const List = () => {
   const [page, setPage] = useState<SpringPage<Product>>();
 
   useEffect(() => {
-    
+    getProducts();
+  }, []);
+
+  const getProducts = () => {
     const params : AxiosRequestConfig = {
       method:"GET",
       url: "/products",
@@ -27,8 +30,7 @@ const List = () => {
       .then(response => {
         setPage(response.data);
       });
-  }, []);
-
+  }
 
   return (
     <div className="product-crud-container">
@@ -47,13 +49,11 @@ const List = () => {
 
       <div className="row">
 
-        <div className="col-sm-6 col-md-12">
           {page?.content.map(product => (
-            <ProductCrudCard product={product} key={product.id}/>
+            <div className="col-sm-6 col-md-12" key={product.id}>
+              <ProductCrudCard product={product} onDelete={() => getProducts()} />
+            </div>
           ))}
-        </div>
-
-
         
       </div>
     </div>
