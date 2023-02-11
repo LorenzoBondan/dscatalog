@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import { Category } from 'types/category';
@@ -18,7 +18,7 @@ const Form = () => {
     
     const isEditing = productId !== 'create';
 
-    const { register, handleSubmit, formState: {errors}, setValue } = useForm<Product>();
+    const { register, handleSubmit, formState: {errors}, setValue, control } = useForm<Product>();
 
     //trazer as categorias pra povoar o combobox
     useEffect(() => {
@@ -105,16 +105,27 @@ const Form = () => {
 
 
                             <div className='margin-bottom-30'>
-                                
-                                <Select 
-                                    options={selectCategories}
-                                    classNamePrefix="product-crud-select"
-                                    placeholder="Categoria"
-                                    isMulti
-                                    getOptionLabel={(category: Category) => category.name}
-                                    getOptionValue={(category: Category) => category.id.toString()}
-                                />
 
+                                <Controller 
+                                    name = 'categories'
+                                    rules = {{required: true}}
+                                    control = {control}
+                                    render = {( {field} ) => (
+                                        <Select 
+                                            {...field}
+                                            options={selectCategories}
+                                            classNamePrefix="product-crud-select"
+                                            placeholder="Categoria"
+                                            isMulti
+                                            getOptionLabel={(category: Category) => category.name}
+                                            getOptionValue={(category: Category) => category.id.toString()}
+                                        />    
+                                    )}
+                                />
+                                {errors.categories && (
+                                    <div className='invalid-feedback d-block'>Campo obrigatório</div>
+                                )}
+                                
                             </div>
 
 
