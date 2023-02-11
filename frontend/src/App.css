@@ -17,6 +17,12 @@ a, a:hover{
     color: unset;
 }
 
+ul {
+    list-style-type: none; /* sem as bolinhas pretas no meio */
+    margin: 0;
+    padding: 0;
+}
+
 .base-card{
     /* card */
     background: #FFFFFF;
