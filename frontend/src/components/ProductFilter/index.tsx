@@ -9,12 +9,12 @@ import './styles.css'
 
 type ProductFilterData = {
     name : string;
-    category : Category;
+    category : Category | null;
 }
 
 const ProductFilter = () => {
 
-    const { register, handleSubmit, control } = useForm<ProductFilterData>();
+    const { register, handleSubmit, control, setValue, getValues } = useForm<ProductFilterData>();
 
     const [selectCategories, setSelectCategories] = useState<Category[]>();
     
@@ -30,6 +30,22 @@ const ProductFilter = () => {
 
        console.log("ENVIOU " + formData);
     };
+
+    const handleFormClear = () => {
+        setValue('name', '');
+        setValue('category', null);
+    }
+
+    const handleChangeCategory = (value: Category) => {
+        setValue('category', value);
+
+        const obj : ProductFilterData = {
+            name: getValues('name'), 
+            category: getValues('category') 
+        };
+
+        console.log("ENVIOU ", obj);
+    }
 
     return(
         <div className="base-card product-filter-container">
@@ -58,16 +74,19 @@ const ProductFilter = () => {
                             <Select 
                                 {...field}
                                 options={selectCategories}
+                                isClearable
                                 classNamePrefix="product-filter-select"
                                 placeholder="Categoria"
                                 getOptionLabel={(category: Category) => category.name}
                                 getOptionValue={(category: Category) => category.id.toString()}
+
+                                onChange={value => handleChangeCategory(value as Category)}
                             />    
                             )}
                         />
                     </div>
 
-                    <button className='btn btn-outline-secondary btn-product-filter-clear'>
+                    <button onClick={handleFormClear} className='btn btn-outline-secondary btn-product-filter-clear'>
                         LIMPAR <span className='btn-product-filter-word'>FILTRO</span>
                     </button>
                 </div>
