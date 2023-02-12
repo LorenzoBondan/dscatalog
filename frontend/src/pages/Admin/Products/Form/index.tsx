@@ -7,6 +7,8 @@ import Select from 'react-select';
 import { Category } from 'types/category';
 import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
+import { toast } from 'react-toastify';
+
 import './styles.css';
 
 type UrlParams = {
@@ -67,7 +69,13 @@ const Form = () => {
         .then(response => {
             console.log('SUCESSO', response.data);
             history.push("/admin/products");
-        });
+
+            toast.info('Produto cadastrado com sucesso!');
+        })
+        .catch(() => {
+            toast.error('Erro ao cadastrar o produto.');
+        })
+        ;
     };
 
     // botão de cancelar -> reenvia o usuário para a lista de produtos, saindo do form
