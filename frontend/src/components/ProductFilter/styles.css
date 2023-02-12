@@ -7,6 +7,7 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid #E1E1E1;
+    margin-bottom: 10px;
 }
 
 .product-filter-name-container input {
@@ -24,6 +25,55 @@
 
 .product-filter-name-container input::placeholder{
     color: #9e9e9e;
+}
+
+.product-filter-button-search-icon{
+    border: none;
+    background-color: unset;
+}
+
+.product-filter-bottom-container{
+    display: flex;
+}
+
+.product-filter-category-container{
+    flex:1;
+    margin-right: 10px;
+}
+
+.btn-product-filter-clear{
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.btn-product-filter-word{
+    display: none;
+}
+
+/* combobox -> cada parte é um parâmetro difente, pelo inspecionar dá pra ver */
+.product-filter-select__control{
+    font-size: 1em;
+    letter-spacing: -0.015em;
+    color: #263238;
+
+    border: none !important;
+    border-bottom: 1px solid #E1E1E1 !important;
+}
+
+.product-filter-select__placeholder {
+    color: #9E9E9E !important;
+}
+
+/* separador antes da flecha */
+.product-filter-select__indicator-separator{
+    display: none;
+}
+
+@media(min-width:576px){
+
+    .btn-product-filter-word{
+        display: unset;
+    }
 }
 
 @media(min-width:768px){

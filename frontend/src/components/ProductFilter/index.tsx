@@ -42,7 +42,7 @@ const ProductFilter = () => {
                     placeholder="Nome do produto"
                     name="name"
                 />
-                <button>
+                <button className='product-filter-button-search-icon'>
                     <SearchIcon/>
                 </button>
                     
@@ -58,7 +58,7 @@ const ProductFilter = () => {
                             <Select 
                                 {...field}
                                 options={selectCategories}
-                                classNamePrefix="product-crud-select"
+                                classNamePrefix="product-filter-select"
                                 placeholder="Categoria"
                                 getOptionLabel={(category: Category) => category.name}
                                 getOptionValue={(category: Category) => category.id.toString()}
@@ -67,8 +67,8 @@ const ProductFilter = () => {
                         />
                     </div>
 
-                    <button className='btn btn-outline-secondary'>
-                        Limpar
+                    <button className='btn btn-outline-secondary btn-product-filter-clear'>
+                        LIMPAR <span className='btn-product-filter-word'>FILTRO</span>
                     </button>
                 </div>
             </form>
