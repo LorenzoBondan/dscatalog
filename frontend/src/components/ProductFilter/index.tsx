@@ -7,12 +7,16 @@ import { requestBackend } from 'util/requests';
 
 import './styles.css'
 
-type ProductFilterData = {
+export type ProductFilterData = {
     name : string;
     category : Category | null;
 }
 
-const ProductFilter = () => {
+type Props = {
+    onSubmitFilter : (data: ProductFilterData) => void;
+}
+
+const ProductFilter = ( {onSubmitFilter} : Props) => {
 
     const { register, handleSubmit, control, setValue, getValues } = useForm<ProductFilterData>();
 
@@ -26,25 +30,27 @@ const ProductFilter = () => {
             })
     }, []);
 
+    //enviar o form (fazer a busca filtrada)
     const onSubmit = (formData : ProductFilterData) => {
-
-       console.log("ENVIOU " + formData);
+        onSubmitFilter(formData);
     };
 
+    // limpar
     const handleFormClear = () => {
         setValue('name', '');
         setValue('category', null);
     }
 
+    // enviar form cada vez que a categoria mudar (fazer a busca filtrada por categoria)
     const handleChangeCategory = (value: Category) => {
         setValue('category', value);
 
         const obj : ProductFilterData = {
             name: getValues('name'), 
-            category: getValues('category') 
+            category: getValues('category'), 
         };
 
-        console.log("ENVIOU ", obj);
+        onSubmitFilter(obj);
     }
 
     return(

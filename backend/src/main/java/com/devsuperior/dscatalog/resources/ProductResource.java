@@ -41,7 +41,7 @@ public class ProductResource {
 	// TRAZENDO TUDO DE FORMA PAGINADA
 	@GetMapping
 	public ResponseEntity<Page<ProductDTO>> findAll(
-			@RequestParam(value = "categoryID", defaultValue = "0") Long categoryId, // FILTRO POR CATEGORIA
+			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId, // FILTRO POR CATEGORIA
 			@RequestParam(value = "name", defaultValue = "") String name, // BUSCA POR NOME
 			Pageable pageable) // SE NÃO QUISER OS FILTROS, DEIXAR SÓ ESTE PARÂMETRO <
 	{
