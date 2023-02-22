@@ -44,6 +44,7 @@ const Form = () => {
                     setValue('description', product.description);
                     setValue('imgUrl', product.imgUrl);
                     setValue('categories', product.categories);
+
                 })
         }
     }, [isEditing, productId, setValue]);
@@ -70,7 +71,7 @@ const Form = () => {
             console.log('SUCESSO', response.data);
             history.push("/admin/products");
 
-            toast.info('Produto cadastrado com sucesso!');
+            toast.success('Produto cadastrado com sucesso!');
         })
         .catch(() => {
             toast.error('Erro ao cadastrar o produto.');
