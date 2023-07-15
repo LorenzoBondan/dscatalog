@@ -4,7 +4,6 @@ import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { Category } from 'types/category';
 import { requestBackend } from 'util/requests';
-
 import './styles.css'
 
 export type ProductFilterData = {
@@ -67,11 +66,8 @@ const ProductFilter = ( {onSubmitFilter} : Props) => {
                 <button className='product-filter-button-search-icon'>
                     <SearchIcon/>
                 </button>
-                    
                 </div>
-
                 <div className='product-filter-bottom-container'>
-                    
                     <div className='product-filter-category-container'>
                         <Controller 
                             name = 'category'
@@ -91,7 +87,6 @@ const ProductFilter = ( {onSubmitFilter} : Props) => {
                             )}
                         />
                     </div>
-
                     <button onClick={handleFormClear} className='btn btn-outline-secondary btn-product-filter-clear'>
                         LIMPAR <span className='btn-product-filter-word'>FILTRO</span>
                     </button>

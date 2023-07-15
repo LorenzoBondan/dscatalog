@@ -1,5 +1,4 @@
 import './styles.css';
- 
 import ProductPrice from 'components/ProductPrice';
 import { Product } from 'types/product';
 
@@ -9,7 +8,6 @@ type Props = {
 
 function ProductCard( {product} : Props ) {
     return (
-      <>
         <div className='base-card product-card'>
             <div className='card-top-container'>
                 <img src={product.imgUrl} alt="Imagem do produto" />
@@ -20,8 +18,6 @@ function ProductCard( {product} : Props ) {
                 <ProductPrice price={product.price} />
             </div>
         </div>
-        
-      </>
     );
   }
 

@@ -19,7 +19,7 @@ const ProductDetails = () => {
     const [product, setProduct] = useState<Product>();
     const [isLoading, setIsLoading] = useState(false);
   
-    useEffect(() => {
+    useEffect(() => { // executa a função quando abre, e executa de novo quando algum dos objetos da lista for alterado
         setIsLoading(true);
         axios
         .get(`${BASE_URL}/products/${productId}`)
@@ -31,17 +31,9 @@ const ProductDetails = () => {
         });
     }, [productId]);
 
-    // executa a função quando abre, e executa de novo quando algum dos objetos da lista for alterado
-    
-    // --- 
-
-    // product.price não aceita valor indefinido, então:
-    // {product && <ProductPrice price={product?.price} /> } -> se o product for undefined, ele nem olha o lado direito
     return(
         <div className="product-details-container">
-
             <div className="base-card product-details-card">
-
                 <Link to="/products">
                     <div className="goback-container">
                         <ArrowIcon />
@@ -49,7 +41,6 @@ const ProductDetails = () => {
                     </div>
                 </Link>
                 <div className="row">
-
                     <div className="col-xl-6">
                     {isLoading ? <ProductInfoLoader /> :
                         <>
@@ -63,7 +54,6 @@ const ProductDetails = () => {
                         </>
                     }
                     </div>
-
                     <div className="col-xl-6">
                     {isLoading ? <ProductDetailsLoader /> :
                         <div className="description-container">
@@ -72,11 +62,8 @@ const ProductDetails = () => {
                         </div>
                     }
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     )
 }

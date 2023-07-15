@@ -30,7 +30,6 @@
 .img-container {
     text-align: center;
     margin-bottom: 20px;
-
     border: 1px #E1E1E1 solid;
     border-radius: 20px;
     padding: 10px;
@@ -120,7 +119,6 @@
     }
 
     /* borda até embaixo */
-
     .description-container {
         min-height: 302px;
     }
@@ -132,9 +130,8 @@
         height: 480px;
         width: auto;
     }
-
+    
     /* borda até embaixo */
-
     .description-container {
         min-height: 502px;
     }

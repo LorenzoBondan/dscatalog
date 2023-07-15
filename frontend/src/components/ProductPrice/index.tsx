@@ -7,14 +7,11 @@ type Props = {
 
 function ProductPrice( {price} : Props ) {
     return (
-      <>
         <div className='product-price-container'>
             <span>R$</span>
             <h3>{formatPrice(price)}</h3>
         </div>
-
-      </>
     );
-  }
+}
   
-  export default ProductPrice;
+export default ProductPrice;

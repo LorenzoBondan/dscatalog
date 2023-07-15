@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
 import { requestBackend } from 'util/requests';
-
 import './styles.css';
 
 type ControlComponentsData = {
@@ -58,30 +57,21 @@ const List = () => {
 
   return (
     <div className="product-crud-container">
-
       <div className="product-crud-bar-container">
-
         <Link to="/admin/products/create">
           <button className="btn btn-primary text-white btn-crud-add">
             ADICIONAR
           </button>
         </Link>
-
-        
         <ProductFilter onSubmitFilter={handleSubmitFilter} />
-
       </div>
-
       <div className="row">
-
           {page?.content.map(product => (
             <div className="col-sm-6 col-md-12" key={product.id}>
               <ProductCrudCard product={product} onDelete={() => getProducts()} />
             </div>
           ))}
-        
       </div>
-
       <Pagination 
         pageCount = {(page) ? page.totalPages : 0} 
         range = {3}
@@ -93,3 +83,4 @@ const List = () => {
 };
 
 export default List;
+

@@ -3,12 +3,10 @@ import qs from 'qs';
 import history from './history';
 import { getAuthData } from './storage';
 
-
 export const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'dscatalog';
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'dscatalog123';
-
 
 /* função requisição de login */
 
@@ -42,7 +40,6 @@ export const requestBackend = (config : AxiosRequestConfig) => {
     return axios({...config, baseURL: BASE_URL, headers});
 }
 
-
 /* axios interceptors */ 
 
 // Add a request interceptor
@@ -65,7 +62,4 @@ axios.interceptors.response.use(function (response) {
     }
     console.log("INTERCEPTOR COM ERRO");
     return Promise.reject(error);
-  });
-
-
-
+});

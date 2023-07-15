@@ -4,10 +4,8 @@ import { User } from 'types/user';
 import { SpringPage } from 'types/vendor/spring';
 import { requestBackend } from 'util/requests';
 
-
 const Users = () => {
   const [page, setPage] = useState<SpringPage<User>>();
-
 
   useEffect(() => {
     const params : AxiosRequestConfig = {
@@ -19,12 +17,10 @@ const Users = () => {
       },
     };
 
-
     requestBackend(params).then((response) => {
       setPage(response.data);
     });
   }, []);
-
 
   return (
     <div>

@@ -8,7 +8,6 @@ import { Category } from 'types/category';
 import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
 import { toast } from 'react-toastify';
-
 import './styles.css';
 
 type UrlParams = {
@@ -86,16 +85,12 @@ const Form = () => {
     
     return(
         <div className="product-crud-container">
-
             <div className="base-card product-card-form-card">
                 <h1>CADASTRAR UM PRODUTO</h1>
-
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className='row product-crud-inputs-container'>
                         <div className='col-lg-6 product-crud-inputs-left-container'>
-
                             <div className='margin-bottom-30'>
-                                
                                 <input 
                                     {...register("name", {
                                     required: 'Campo obrigatório',
@@ -106,12 +101,8 @@ const Form = () => {
                                     name="name"
                                 />
                                 <div className='invalid-feedback d-block'>{errors.name?.message}</div>
-
                             </div>
-
-
                             <div className='margin-bottom-30'>
-
                                 <Controller 
                                     name = 'categories'
                                     rules = {{required: true}}
@@ -131,12 +122,8 @@ const Form = () => {
                                 {errors.categories && (
                                     <div className='invalid-feedback d-block'>Campo obrigatório</div>
                                 )}
-                                
                             </div>
-
-
                             <div className='margin-bottom-30'>
-                                
                                 <Controller 
                                     name='price'
                                     rules={{required: 'Campo obrigatório'}}
@@ -152,14 +139,9 @@ const Form = () => {
 
                                     )}
                                 />
-
                                 <div className='invalid-feedback d-block'>{errors.name?.message}</div>
-
                             </div>
-
-
                             <div className='margin-bottom-30'>
-                                
                                 <input 
                                     {...register("imgUrl", {
                                     required: 'Campo obrigatório',
@@ -174,11 +156,8 @@ const Form = () => {
                                     name="imgUrl"
                                 />
                                 <div className='invalid-feedback d-block'>{errors.imgUrl?.message}</div>
-
                             </div>
-
                         </div>
-
                         <div className='col-lg-6'>
                             <div>
                                 <textarea 
@@ -194,7 +173,6 @@ const Form = () => {
                             </div>
                         </div>
                     </div>
-
                     <div className='product-crud-buttons-container'>
                         <button 
                             className='btn btn-outline-danger product-crud-buttons'
@@ -202,13 +180,10 @@ const Form = () => {
                             >
                             CANCELAR
                         </button>
-
                         <button className='btn btn-primary text-white product-crud-buttons'>SALVAR</button>
-
                     </div>
                 </form>
             </div>
-            
         </div>
     );
 }

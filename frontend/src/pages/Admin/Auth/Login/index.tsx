@@ -1,10 +1,7 @@
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import ButtonIcon from 'components/ButtonIcon';
-
-
 import './styles.css';
 import { useForm } from 'react-hook-form';
-
 import { useContext, useState } from 'react';
 import { AuthContext } from 'AuthContext';
 import { requestBackendLogin } from 'util/requests';
@@ -14,9 +11,9 @@ import { getTokenData } from 'util/auth';
 type CredentialsDTO = {
     username: string,
     password: string,
-  };
+};
 
-  //redirecionar pra rota pretendida após o login (componente PrivateRoute)
+//redirecionar pra rota pretendida após o login (componente PrivateRoute)
 type LocationState = {
   from: string;
 }
@@ -64,17 +61,12 @@ const Login = () => {
   return (
     <div className="base-card login-card">
       <h1>LOGIN</h1>
-
       { hasError && (
         <div className="alert alert-danger">
             Erro ao tentar efetuar o login
         </div>
         )}
-
-
       <form onSubmit={handleSubmit(onSubmit)}>
-        
-        
         <div className="mb-4">
           <input 
             {...register("username", {
@@ -91,8 +83,6 @@ const Login = () => {
           />
           <div className='invalid-feedback d-block'>{errors.username?.message}</div>
         </div>
-
-
         <div className="mb-2">
           <input
             {...register("password", {
@@ -105,9 +95,6 @@ const Login = () => {
           />
           <div className='invalid-feedback d-block' >{errors.password?.message}</div>
         </div>
-
-
-
         <Link to="/admin/auth/recover" className="login-link-recover">
           Esqueci a senha
         </Link>
@@ -124,6 +111,5 @@ const Login = () => {
     </div>
   );
 };
-
 
 export default Login;

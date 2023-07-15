@@ -12,26 +12,19 @@ const Admin = () => {
     return (
         <div className="admin-container">
             <Navbar />
-
             <div className="admin-content">
-                
                 <Switch>
                     <PrivateRoute path="/admin/products">
                         <Products/>
                     </PrivateRoute>
-
                     <PrivateRoute path="/admin/categories">
                         <Categories/>
                     </PrivateRoute>
-
                     <PrivateRoute path="/admin/users">
                         <Users />
                     </PrivateRoute>
                 </Switch>
-
             </div>
-
-
         </div>
     );
 };
